@@ -22,23 +22,23 @@ public class User {
     @Column(nullable = false, length = 36)
     private String lastName;
 
-    @Column(nullable = false, length = 36)
+    @Column(length = 36)
     private String phoneNumber;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String profilePhotoUrl;
 
-    @Column(nullable = false, length = 36)
+    @Column(length = 10)
     private String Otp;
 
     @Column(nullable = false, length = 36)
-    private String hashedPassword;
+    private String Password;
 
     @Column(nullable = false)
     private boolean isVerified = false;
 
     @Column(nullable = false)
-    private boolean acceptedTerms = false;
+    private boolean acceptedTerms;
 
     @Column(nullable = false)
     @CreationTimestamp
@@ -134,11 +134,11 @@ public class User {
         this.accountDeletedAt = accountDeletedAt;
     }
 
-    public String getHashedPassword() {
-        return hashedPassword;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+    public void setPassword(String password) {
+        Password = password;
     }
 }

@@ -1,0 +1,20 @@
+
+BEGIN;
+
+ALTER TABLE users
+RENAME COLUMN "hashed_password" TO "password";
+
+ALTER TABLE users
+ALTER COLUMN "profile_photo_url" DROP NOT NULL;
+
+ALTER TABLE users
+ALTER COLUMN "otp" DROP NOT NULL,
+ALTER COLUMN "otp" TYPE VARCHAR(10);
+
+ALTER TABLE users
+ALTER COLUMN "phone_number" DROP NOT NULL;
+
+ALTER TABLE users
+ALTER COLUMN "accepted_terms" DROP DEFAULT;
+
+COMMIT;
