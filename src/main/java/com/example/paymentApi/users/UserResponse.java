@@ -1,50 +1,26 @@
 package com.example.paymentApi.users;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
+public class UserResponse{
 
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false, length = 36)
     private String id;
 
-    @Column(nullable = false, length = 100)
     private String emailAddress;
 
-    @Column(nullable = false, length = 36)
     private String firstName;
 
-    @Column(nullable = false, length = 36)
     private String lastName;
 
-    @Column(length = 36)
     private String phoneNumber;
 
-    @Column(length = 100)
     private String profilePhotoUrl;
 
-    @Column(length = 10)
     private String Otp;
 
-    @Column(nullable = false, length = 36)
     private String Password;
 
-    @Column(nullable = false)
-    private boolean isVerified = false;
+    private boolean isVerified;
 
-    @Column(nullable = false)
     private boolean acceptedTerms;
-
-    @Column(nullable = false)
-    @CreationTimestamp
-    private LocalDateTime registeredAt;
-
-    private LocalDateTime accountDeletedAt;
 
     public String getId() {
         return id;
@@ -102,6 +78,14 @@ public class User {
         Otp = otp;
     }
 
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        Password = password;
+    }
+
     public boolean isVerified() {
         return isVerified;
     }
@@ -116,29 +100,5 @@ public class User {
 
     public void setAcceptedTerms(boolean acceptedTerms) {
         this.acceptedTerms = acceptedTerms;
-    }
-
-    public LocalDateTime getRegisteredAt() {
-        return registeredAt;
-    }
-
-    public void setRegisteredAt(LocalDateTime registeredAt) {
-        this.registeredAt = registeredAt;
-    }
-
-    public LocalDateTime getAccountDeletedAt() {
-        return accountDeletedAt;
-    }
-
-    public void setAccountDeletedAt(LocalDateTime accountDeletedAt) {
-        this.accountDeletedAt = accountDeletedAt;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
     }
 }
