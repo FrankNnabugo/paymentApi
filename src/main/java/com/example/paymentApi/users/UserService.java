@@ -110,15 +110,15 @@ public class UserService {
                 exceptionThrower.throwUserNotFoundExistException(HttpRequestUtil.getServletPath()));
 
         if (user.getOtp() == null || user.getOtpExpiryTime() == null) {
-            throw new IllegalStateException("No OTP found. Please request a new one.");
+            exceptionThrower.throwOtpNotFoundException(HttpRequestUtil.getServletPath());
         }
 
         if (LocalDateTime.now().isAfter(user.getOtpExpiryTime())) {
-            throw new IllegalStateException("OTP has expired. Please request a new one.");
+            exceptionThrower.throwOtpExpiredException(HttpRequestUtil.getServletPath());
         }
 
         if (!otp.equals(user.getOtp())) {
-            throw new IllegalArgumentException("Invalid OTP. Please try again.");
+            exceptionThrower.throwInvalidOtpException(HttpRequestUtil.getServletPath());
         }
         verifier.setResourceUrl(HttpRequestUtil.getServletPath())
                 .verifyParams(otp);
@@ -140,7 +140,7 @@ public class UserService {
                 exceptionThrower.throwUserNotFoundExistException(HttpRequestUtil.getServletPath()));
 
         if (!jwtService.validateRefreshToken(refreshToken)) {
-            throw new IllegalArgumentException("Invalid or expired refreshToken");
+            exceptionThrower.throwInvalidRefreshTokenException(HttpRequestUtil.getServletPath());
         }
         String newAccessToken = jwtService.generateAccessToken(user);
         String newRefreshToken = jwtService.generateRefreshToken(user);

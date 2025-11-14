@@ -30,7 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         catch (Exception exception) {
 
-            throw new RuntimeException(exception);
+            throw new RuntimeException(exception.getMessage());
         }
 
         return true;
