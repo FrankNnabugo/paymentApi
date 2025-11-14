@@ -12,7 +12,11 @@ public class PasswordHashUtil {
 
     private static final int ITERATIONS = 65536;
     private static final int KEY_LENGTH = 256;
+    private final GeneralLogger logger;
 
+    public PasswordHashUtil(GeneralLogger logger){
+        this.logger = logger;
+    }
     public String hashPassword(String password){
         try {
             byte[] salt = generateSalt();
@@ -22,6 +26,7 @@ public class PasswordHashUtil {
                     Base64.getEncoder().encodeToString(hash);
         }
         catch(Exception exception){
+            logger.log(exception.getMessage());
             throw new RuntimeException(exception);
         }
     }
@@ -37,6 +42,7 @@ public class PasswordHashUtil {
             return slowEquals(storedHash, newHash);
         }
         catch(Exception exception){
+            logger.log(exception.getMessage());
 
             throw new RuntimeException(exception);
         }

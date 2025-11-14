@@ -640,3 +640,4 @@ Consider defining a bean of type 'com.example.paymentApi.shared.utility.Password
 2025-11-14T11:14:01.512+01:00  INFO 12412 --- [paymentApi] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
 2025-11-14T11:14:04.183+01:00  INFO 12412 --- [paymentApi] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8000 (http) with context path '/'
 2025-11-14T11:14:04.216+01:00  INFO 12412 --- [paymentApi] [main] c.e.paymentApi.PaymentApiApplication     : Started PaymentApiApplication in 14.204 seconds (process running for 15.211)
+2025-11-14T12:07:48.002+01:00  WARN 12412 --- [paymentApi] [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s620ms508µs).
