@@ -1,0 +1,5 @@
+BEGIN;
+ALTER TABLE users
+ADD COLUMN otp_expiry_time TIMESTAMP NULL;
+
+COMMIT;
