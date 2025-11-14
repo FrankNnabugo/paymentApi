@@ -22,6 +22,10 @@ public class UserResponse{
 
     private boolean acceptedTerms;
 
+    private String token;
+
+    private String refreshToken;
+
     public String getId() {
         return id;
     }
@@ -100,5 +104,21 @@ public class UserResponse{
 
     public void setAcceptedTerms(boolean acceptedTerms) {
         this.acceptedTerms = acceptedTerms;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

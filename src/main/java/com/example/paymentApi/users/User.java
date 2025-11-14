@@ -31,6 +31,8 @@ public class User {
     @Column(length = 10)
     private String Otp;
 
+    private LocalDateTime otpExpiryTime;
+
     @Column(nullable = false, length = 36)
     private String Password;
 
@@ -140,5 +142,13 @@ public class User {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public LocalDateTime getOtpExpiryTime() {
+        return otpExpiryTime;
+    }
+
+    public void setOtpExpiryTime(LocalDateTime otpExpiryTime) {
+        this.otpExpiryTime = otpExpiryTime;
     }
 }

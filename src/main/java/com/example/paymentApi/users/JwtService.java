@@ -1,6 +1,7 @@
 package com.example.paymentApi.users;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -20,9 +21,15 @@ public class JwtService {
     private String jwtSecret;
 
     @Value("${security.jwt.expiration-time}")
-    private long  jwtExpiration;
+    private long jwtExpiration;
 
-    public String generateToken(User user){
+    @Value("${security.jwt.refresh-secret}")
+    private String refreshSecret;
+
+    @Value("${security.jwt.refresh-expiration-time}")
+    private long refreshExpiryTime;
+
+    public String generateAccessToken(User user){
         HashMap<String, Object> extraClaims = new HashMap<>();
         return generateToken(extraClaims, user);
     }
@@ -38,7 +45,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetail.getId())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -82,6 +89,42 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    private Key signRefreshTokenWithKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(refreshSecret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+        public String generateRefreshToken(User user) {
+        return Jwts.builder()
+                .setSubject(user.getEmailAddress())
+                .claim("id", user.getId())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiryTime ))
+                .signWith(signRefreshTokenWithKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(signRefreshTokenWithKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        }
+        catch (JwtException e) {
+            return false;
+        }
+    }
+
+//        public String extractEmailFromRefreshToken(String token) {
+//            Claims claims = Jwts.parser()
+//                    .setSigningKey(refreshSecret.getBytes())
+//                    .parseClaimsJws(token)
+//                    .getBody();
+//            return claims.getSubject();
+//        }
 
     }
 
