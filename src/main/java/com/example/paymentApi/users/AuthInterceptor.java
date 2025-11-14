@@ -28,8 +28,9 @@ public class AuthInterceptor implements HandlerInterceptor {
             String userId = jwtService.extractSubject(authToken);
             request.setAttribute("userId", userId);
         }
-        catch (Exception ex) {
-            exceptionThrower.throwInvalidTokenException(HttpRequestUtil.getServletPath());
+        catch (Exception exception) {
+
+            throw new RuntimeException(exception);
         }
 
         return true;
