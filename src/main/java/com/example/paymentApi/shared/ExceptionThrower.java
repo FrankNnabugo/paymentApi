@@ -33,6 +33,14 @@ public class ExceptionThrower {
     private final String INVALID_LOGIN_CREDENTIALS_ERROR = "Invalid Login Credential supplied.";
     private final String USER_NOT_VERIFIED_ERROR_CODE = "3003";
     private final String USER_NOT_VERIFIED_ERROR = "Please verify your account to enable login";
+    private final String OTP_NOT_FOUND_ERROR_CODE = "3004";
+    private final String OTP_NOT_FOUND_ERROR = "No OTP found. Please request a new one.";
+    private final String OTP_EXPIRED_ERROR_CODE = "3005";
+    private final String OTP_EXPIRED_ERROR = "OTP has expired. Please request a new one.";
+    private final String INVALID_OTP_ERROR_CODE = "3006";
+    private final String INVALID_OTP_ERROR = "Invalid OTP. Please try again.";
+    private final String INVALID_REFRESH_TOKEN_ERROR_CODE = "3007";
+    private final String INVALID_REFRESH_TOKEN_ERROR = "Invalid or expired refreshToken";
 
 
 
@@ -97,4 +105,41 @@ public class ExceptionThrower {
         );
     }
 
+    public void throwOtpNotFoundException(String link){
+        throw new GeneralAppException(
+                HttpStatus.BAD_REQUEST,
+                OTP_NOT_FOUND_ERROR_CODE,
+                OTP_NOT_FOUND_ERROR,
+                link
+        );
+    }
+
+    public void throwOtpExpiredException(String link){
+        throw new GeneralAppException(
+                HttpStatus.BAD_REQUEST,
+                OTP_EXPIRED_ERROR_CODE,
+                OTP_EXPIRED_ERROR,
+                link
+        );
+
+    }
+
+    public void throwInvalidOtpException(String link){
+        throw new GeneralAppException(
+                HttpStatus.BAD_REQUEST,
+                INVALID_OTP_ERROR_CODE,
+                INVALID_OTP_ERROR,
+                link
+        );
+
+    }
+
+    public void throwInvalidRefreshTokenException(String link){
+        throw new GeneralAppException(
+                HttpStatus.BAD_REQUEST,
+                INVALID_REFRESH_TOKEN_ERROR_CODE,
+                INVALID_REFRESH_TOKEN_ERROR,
+                link
+        );
+    }
 }
