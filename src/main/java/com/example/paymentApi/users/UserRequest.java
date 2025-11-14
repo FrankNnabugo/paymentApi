@@ -12,7 +12,7 @@ public class UserRequest{
 
     private String password;
 
-    private String acceptedTerms;
+    private boolean acceptedTerms;
 
     public String getFirstName() {
         return firstName;
@@ -54,11 +54,11 @@ public class UserRequest{
         this.password = password;
     }
 
-    public String getAcceptedTerms() {
+    public boolean getAcceptedTerms() {
         return acceptedTerms;
     }
 
-    public void setAcceptedTerms(String acceptedTerms) {
+    public void setAcceptedTerms(boolean acceptedTerms) {
         this.acceptedTerms = acceptedTerms;
     }
 }
